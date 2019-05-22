@@ -1,6 +1,6 @@
 package it.polito.tdp.borders.model;
 
-public class Border {
+public class Border implements Comparable<Border>{
 	
 	private Country country1;
 	private Country country2;
@@ -61,6 +61,11 @@ public class Border {
 		if (year != other.year)
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Border altro) {
+		return this.country1.getStateNme().compareTo(altro.country1.getStateNme());
 	}
 	
 	

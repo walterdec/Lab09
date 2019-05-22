@@ -6,6 +6,7 @@ package it.polito.tdp.borders;
 
 import java.net.URL;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
@@ -66,12 +67,25 @@ public class BordersController {
 			}
 			txtResult.appendText("\nNumber of borders: "+model.getGradoVertice(country)+"\n\n");
 		}
+		txtResult.appendText("Connected components: "+model.getComponentiConnesse());
 		
 	}
 	
     @FXML
     void doCercaStatiConfinanti(ActionEvent event) {
-
+    	txtResult.clear();
+    	List<Country> confini;
+    	Country source = comboBox.getSelectionModel().getSelectedItem();
+    	try{
+    	confini = model.paesiRaggiungibili(source);
+    	} catch (NullPointerException e) {
+    		txtResult.setText("Grafo non creato");
+    		return;
+    	}
+    	txtResult.appendText("Country: "+source+"\nBorders: ");
+    	for(Country c : confini) {
+    		txtResult.appendText(c.toString()+", ");
+    	}
     }
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
